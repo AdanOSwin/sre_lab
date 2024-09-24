@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  jenkins:
+    image: joi292/jenkins-terradocker:v1.2
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - /home/eduamaro09/jenkins_compose/jenkins_configuration:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+  agent:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    container_name: agent
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlZeO1N1Tdt8o4gUE0vmPaFlUmZvO/8way0yU3wAw7H4xpbj2gsALj7/tEM4CS/6XD35xLS9VjvBi6cPJDx7fA/Jaxrp+ekEg43A48LLM/h2XVpqRcfg9JaHqhNvy1K6ukqau6UJqeBTjiMIfboMoBZTRZM9KVGUXYtxq3bATQqANbcdaDP1MLjy36jeCT7g4qobGc2NqvXLJxpLbB9aJ+XYoPBw/wqm+mTbtXCypuizAszWIqRDohWJSi6EjFmqZZ7FxpONsHBjh/Hl7aA2CPIMrwFvUqtcg30+w5kmTRgyDJb2HYWX+JoarWMPNY3DiwVXu9mnCdFgdk9LYdKpxpEAwU3SdtBp6S/pPSKzRJ8ora1xM6rYPNGaOYo5hM0zBU6e6wqmG5DM0qn1cM+zbAhahZ+T6w1K27kbnp4Sa+o+E/8rJIhXeKYUgNuuut8Wy4W2slqAX4DJUtYuqpyZBtEFYSoxstwnPRzexm51WiXJ7Pmk4CFy2cJm92+m2JFD0= joi@H4YL3Y
